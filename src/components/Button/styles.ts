@@ -1,5 +1,4 @@
 import styled, { css, DefaultTheme } from 'styled-components'
-// import media from 'styled-media-query'
 
 import { ButtonProps } from '.'
 
@@ -48,6 +47,10 @@ export const Wrapper = styled.button<WrapperProps>`
     cursor: pointer;
     border-radius: ${theme.border.radius};
     padding: ${theme.spacings.xxsmall};
+
+    &:hover {
+        background: linear-gradient(180deg, #e35565 0%, #d958a6 50%);
+      }
 
     ${!!size && wrapperModifiers[size](theme)}
     ${!!fullWidth && wrapperModifiers.fullWidth()}

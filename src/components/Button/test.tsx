@@ -47,4 +47,22 @@ describe('<Button />', () => {
     expect(screen.getByText(/Buy now/i)).toBeInTheDocument()
     expect(screen.getByTestId('icon')).toBeInTheDocument()
   })
+
+  it('should render button as a link', () => {
+    const { debug, container } = renderWithTheme(
+      <Button as="a" href="/link">
+        Buy now
+      </Button>
+    )
+    debug(container)
+    expect(screen.getByRole('link', { name: /Buy now/i })).toHaveAttribute(
+      'href',
+      '/link'
+    )
+  })
+
+  it('should render button as a button', () => {
+    renderWithTheme(<Button as="button">Buy now</Button>)
+    expect(screen.getByRole('button', { name: /Buy now/i })).toBeInTheDocument()
+  })
 })
