@@ -1,4 +1,3 @@
-import { ReactNode } from 'react'
 import * as S from './styles'
 
 export type LineColors = 'primary' | 'secondary'
