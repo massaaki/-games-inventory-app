@@ -15,7 +15,7 @@ export default {
     onFav: { action: 'clicked!' }
   },
   parameters: {
-    backgrounds: { default: 'dark' }
+    backgrounds: { default: 'won-dark' }
   }
 } as Meta
 
