@@ -16,16 +16,10 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged-pre-push"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "src/**/*": [
-      "yarn lint --fix",
-      "yarn test --findRelatedTests --bail"
-    ]
-  },
-  "lint-staged-pre-push": {
     "src/**/*": [
       "yarn lint --fix",
       "yarn test --findRelatedTests --bail"
