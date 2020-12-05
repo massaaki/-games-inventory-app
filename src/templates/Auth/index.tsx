@@ -18,7 +18,7 @@ const Auth = ({ title, children }: AuthProps) => (
       <S.Footer>Won Ganes 2020 © Todos os direitos reservados.</S.Footer>
     </S.BannerBlock>
     <S.Content>
-      <Logo size="large" />
+      <Logo color="black" size="large" />
 
       <Heading lineColor="secondary" lineLeft>
         {title}
