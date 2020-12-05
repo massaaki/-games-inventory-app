@@ -7,11 +7,11 @@ describe('<Auth />', () => {
   it('should render all components and children', () => {
     renderWithTheme(
       <Auth title="Auth title">
-        <input type="text" data-testid="form" />
+        <input type="text" />
       </Auth>
     )
 
-    expect(screen.getAllByLabelText(/Won Games/i)).toHaveLength(2)
+    expect(screen.getAllByRole('img', { name: /Won Games/i })).toHaveLength(2)
     expect(
       screen.getByRole('heading', {
         name: /All your favorite games in one place/i
@@ -28,6 +28,6 @@ describe('<Auth />', () => {
       screen.getByRole('heading', { name: /Auth title/i })
     ).toBeInTheDocument()
 
-    expect(screen.getByTestId('form')).toBeInTheDocument()
+    expect(screen.getByRole('textbox')).toBeInTheDocument()
   })
 })
