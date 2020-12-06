@@ -8,6 +8,7 @@ import Button from 'components/Button'
 
 import * as S from './styles'
 import { FormLink, FormWrapper } from 'components/Form'
+
 const FormSignIn = () => (
   <FormWrapper>
     <form>
