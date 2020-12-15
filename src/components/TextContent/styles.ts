@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components'
 import media from 'styled-media-query'
 
-import * as HeadingStyles from 'components/Heading/styles'
-
 export const Wrapper = styled.div`
   ${({ theme }) => css`
     color: ${theme.colors.white};
@@ -17,7 +15,7 @@ export const Wrapper = styled.div`
     h4,
     h5,
     h6 {
-      color: ${theme.colors.white};
+      /* color: ${theme.colors.white}; */
       margin: ${theme.spacings.xsmall} 0;
     }
     p {
