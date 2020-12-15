@@ -14,7 +14,7 @@ export type ShowcaseProps = {
 const Showcase = ({ title, highlight, games }: ShowcaseProps) => (
   <S.Wrapper>
     {!!title && (
-      <Heading lineLeft lineColor="secondary">
+      <Heading lineLeft lineColor="secondary" color="white">
         {title}
       </Heading>
     )}
