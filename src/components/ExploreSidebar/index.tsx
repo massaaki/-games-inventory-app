@@ -1,54 +1,57 @@
 import Heading from 'components/Heading'
 import Checkbox from 'components/Checkbox'
 import Radio from 'components/Radio'
-
-import * as S from './styles'
 import Button from 'components/Button'
 
-const ExploreSidebar = () => (
+import * as S from './styles'
+
+export type ItemProps = {
+  title: string
+  name: string
+  type: string
+  fields: Field[]
+}
+
+type Field = {
+  label: string
+  name: string
+}
+
+export type ExploreSidebarProps = {
+  items: ItemProps[]
+}
+
+const ExploreSidebar = ({ items }: ExploreSidebarProps) => (
   <S.Wrapper>
-    <Heading lineBottom lineColor="secondary" color="white" size="small">
-      Price
-    </Heading>
-    <Checkbox name="under-50" label="Under $50" labelFor="under-50" />
-    <Checkbox name="under-100" label="Under $100" labelFor="under-100" />
-    <Checkbox name="under-150" label="Under $150" labelFor="under-150" />
-    <Checkbox name="under-200" label="Under $200" labelFor="under-200" />
-    <Checkbox name="free" label="Free" labelFor="free" />
-    <Checkbox name="discounted" label="Discounted" labelFor="discounted" />
+    {items.map((item) => (
+      <div key={item.title}>
+        <Heading lineBottom lineColor="secondary" color="white" size="small">
+          {item.title}
+        </Heading>
 
-    <Heading lineBottom lineColor="secondary" color="white" size="small">
-      Sort By
-    </Heading>
-    <Radio
-      id="high-to-low"
-      name="sort-by"
-      label="High to low"
-      labelFor="high-to-low"
-      value="high-to-low"
-    />
-    <Radio
-      id="low-to-hight"
-      name="sort-by"
-      label="Low to high"
-      labelFor="low-to-high"
-      value="low-to-high"
-    />
+        {item.type === 'checkbox' &&
+          item.fields.map((field) => (
+            <Checkbox
+              key={field.name}
+              name={field.name}
+              label={field.label}
+              labelFor={field.name}
+            />
+          ))}
 
-    <Heading lineBottom lineColor="secondary" color="white" size="small">
-      System
-    </Heading>
-    <Checkbox name="windows" label="Windows" labelFor="windows" />
-    <Checkbox name="mac" label="Mac" labelFor="mac" />
-    <Checkbox name="linux" label="Linux" labelFor="linux" />
-
-    <Heading lineBottom lineColor="secondary" color="white" size="small">
-      Genre
-    </Heading>
-    <Checkbox name="action" label="Action" labelFor="action" />
-    <Checkbox name="adventure" label="Adventure" labelFor="adventure" />
-    <Checkbox name="fps" label="FPS" labelFor="fps" />
-    <Checkbox name="mmorpg" label="MMORPG" labelFor="mmorpg" />
+        {item.type === 'radio' &&
+          item.fields.map((field) => (
+            <Radio
+              key={field.name}
+              id={field.name}
+              name={item.name}
+              label={field.label}
+              labelFor={field.name}
+              value={field.name}
+            />
+          ))}
+      </div>
+    ))}
 
     <Button fullWidth size="medium">
       Filter
