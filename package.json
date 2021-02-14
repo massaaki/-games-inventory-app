@@ -10,9 +10,13 @@
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "test": "jest",
     "test:watch": "yarn test --watch",
+    "schema:download": "apollo client:download-schema --endpoint=http://localhost:1337/graphql schema-temp.gql",
+    "schema:convert": "node convertToNonNull.js",
+    "codegen": "apollo codegen:generate --target typescript --excludes=node_modules/ --includes=src/graphql/**/*.ts --localSchemaFile schema.gql --tagName=gql --outputFlat src/graphql/generated",
+    "types:generate": "yarn schema:download && yarn schema:convert && yarn codegen",
     "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook -s ./public",
-    "generate": "yarn plop --plopfile ./generators/plopfile.js "
+    "generate": "yarn plop --plopfile ./generators/plopfile.ts "
   },
   "husky": {
     "hooks": {
@@ -26,8 +30,10 @@
     ]
   },
   "dependencies": {
+    "@apollo/client": "^3.3.9",
     "@styled-icons/boxicons-solid": "^10.18.0",
     "@styled-icons/fa-brands": "^10.22.0",
+    "graphql": "^15.5.0",
     "next": "10.0.1",
     "next-pwa": "^3.1.5",
     "polished": "^4.0.5",
@@ -55,6 +61,7 @@
     "@types/styled-components": "^5.1.4",
     "@typescript-eslint/eslint-plugin": "^4.8.0",
     "@typescript-eslint/parser": "^4.8.0",
+    "apollo": "^2.32.1",
     "babel-loader": "^8.2.1",
     "babel-plugin-styled-components": "^1.11.1",
     "eslint": "^7.13.0",
