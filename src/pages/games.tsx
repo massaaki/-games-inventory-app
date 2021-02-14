@@ -1,4 +1,4 @@
-import { initializeApollo } from 'utils/tests/apollo'
+import { initializeApollo } from 'utils/apollo'
 import { QUERY_GAMES } from 'graphql/queries/games'
 import { QueryGames, QueryGamesVariables } from 'graphql/generated/QueryGames'
 
@@ -21,12 +21,10 @@ export async function getStaticProps() {
 
   const games = data.games.map((game) => ({
     title: game.name,
+    slug: game.slug,
     developer: game.developers[0].name,
     img: `http://localhost:1337${game.cover!.url}`,
-    price: new Intl.NumberFormat('en', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(game.price)
+    price: game.price
   }))
 
   return {

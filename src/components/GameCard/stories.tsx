@@ -6,10 +6,11 @@ export default {
   component: GameCard,
   args: {
     title: 'Populartion Zero',
+    slug: 'population-zero',
     developer: 'Rockstar Games',
     img: '/img/red-dead-img.jpg',
-    price: 'R$ 200,00',
-    promotionalPrice: 'R$ 100,00'
+    price: 200,
+    promotionalPrice: 100
   },
   argTypes: {
     onFav: { action: 'clicked!' }

@@ -4,10 +4,11 @@ import { renderWithTheme } from 'utils/tests/helpers'
 import GameCard, { GameCardProps } from '.'
 
 const props: GameCardProps = {
+  slug: 'populartion-zero',
   title: 'Some title',
   developer: 'Some developer',
   img: 'imgUrl',
-  price: 'R$100'
+  price: 100
 }
 
 describe('<GameCard />', () => {
@@ -32,7 +33,11 @@ describe('<GameCard />', () => {
     )
 
     // verifique se o preço for renderizado
-    expect(screen.getByText(props.price)).toBeInTheDocument()
+    expect(screen.getByText('$100.00')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: props.title })).toHaveAttribute(
+      'href',
+      `/game/${props.slug}`
+    )
 
     expect(screen.getByLabelText(/Add to Wishlist/i))
   })
@@ -42,27 +47,27 @@ describe('<GameCard />', () => {
     renderWithTheme(<GameCard {...props} />)
 
     //preco nao tenha o line-throw
-    expect(screen.getByText(props.price)).not.toHaveStyle({
+    expect(screen.getByText('$100.00')).not.toHaveStyle({
       'text-decoration': 'line-through'
     })
 
     //preço tenha o background secundário
-    expect(screen.getByText(props.price)).toHaveStyle({
+    expect(screen.getByText('$100.00')).toHaveStyle({
       'background-color': '#3CD3C1'
     })
   })
 
   it('should render a line-through in price when promotional', () => {
     //renderizar o componente com promotional price // defaultPrice reais e promotionaPrice reais
-    renderWithTheme(<GameCard {...props} promotionalPrice="R$ 50,00" />)
+    renderWithTheme(<GameCard {...props} promotionalPrice={50} />)
 
     //preco  tenha o line-through (defaultPrice)
-    expect(screen.getByText(props.price)).toHaveStyle({
+    expect(screen.getByText('$100.00')).toHaveStyle({
       'text-decoration': 'line-through'
     })
 
     //o promotionaPrice nao vai ter o line-through
-    expect(screen.getByText('R$ 50,00')).not.toHaveStyle({
+    expect(screen.getByText('$50.00')).not.toHaveStyle({
       'text-decoration': 'line-through'
     })
   })
