@@ -23,7 +23,7 @@ async function convert(inputFile, outputFile) {
   const visitor = {
     FieldDefinition: (node) => {
       // Assume Strapi relations are lists with arguments
-      if (node.type.kind === 'ListType' && node.arguments.length) {
+      if (node.type.kind === 'ListType' && node.arguments?.length) {
         return {
           ...node,
           type: convertToNonNull(node.type)
