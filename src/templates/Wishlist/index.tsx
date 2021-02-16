@@ -22,7 +22,7 @@ const Wishlist = ({
 }: WishlistTemplateProps) => (
   <Base>
     <Container>
-      <Heading lineLeft lineColor="secondary">
+      <Heading lineLeft lineColor="secondary" color="white">
         Wishlist
       </Heading>
 
