@@ -25,3 +25,9 @@ export const ShowMore = styled.div`
     }
   `}
 `
+
+export const Loading = styled.p`
+  ${({ theme }) => css`
+    color: ${theme.colors.white};
+  `}
+`

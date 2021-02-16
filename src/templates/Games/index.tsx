@@ -1,3 +1,7 @@
+import { useQuery } from '@apollo/client'
+import { QueryGames, QueryGamesVariables } from 'graphql/generated/QueryGames'
+import { QUERY_GAMES } from 'graphql/queries/games'
+
 import Base from 'templates/Base'
 import { KeyboardArrowDown as ArrowDown } from '@styled-icons/material-outlined/KeyboardArrowDown'
 
@@ -12,7 +16,16 @@ export type GamesTemplateProps = {
   filterItems: ItemProps[]
 }
 
-const GamesTemplate = ({ filterItems, games = [] }: GamesTemplateProps) => {
+const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
+  const { data, loading } = useQuery<QueryGames, QueryGamesVariables>(
+    QUERY_GAMES,
+    {
+      variables: {
+        limit: 15
+      }
+    }
+  )
+
   const handleFilter = () => {
     return
   }
@@ -25,19 +38,29 @@ const GamesTemplate = ({ filterItems, games = [] }: GamesTemplateProps) => {
     <Base>
       <S.Main>
         <ExploreSidebar items={filterItems} onFilter={handleFilter} />
+        {loading ? (
+          <S.Loading>Loading...</S.Loading>
+        ) : (
+          <section>
+            <Grid>
+              {data?.games.map((game) => (
+                <GameCard
+                  key={game.slug}
+                  title={game.name}
+                  slug={game.slug}
+                  developer={game.developers[0].name}
+                  img={`http://localhost:1337${game.cover!.url}`}
+                  price={game.price}
+                />
+              ))}
+            </Grid>
 
-        <section>
-          <Grid>
-            {games.map((item) => (
-              <GameCard key={item.title} {...item} />
-            ))}
-          </Grid>
-
-          <S.ShowMore role="button" onClick={handleShowMore}>
-            <p>Show More</p>
-            <ArrowDown size={35} />
-          </S.ShowMore>
-        </section>
+            <S.ShowMore role="button" onClick={handleShowMore}>
+              <p>Show More</p>
+              <ArrowDown size={35} />
+            </S.ShowMore>
+          </section>
+        )}
       </S.Main>
     </Base>
   )
