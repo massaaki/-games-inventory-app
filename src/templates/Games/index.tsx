@@ -11,6 +11,8 @@ import ExploreSidebar, { ItemProps } from 'components/ExploreSidebar'
 import GameCard from 'components/GameCard'
 import { Grid } from 'components/Grid'
 
+import Empty from 'components/Empty'
+
 import * as S from './styles'
 
 export type GamesTemplateProps = {
@@ -56,23 +58,29 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
           <S.Loading>Loading...</S.Loading>
         ) : (
           <section>
-            <Grid>
-              {data?.games.map((game) => (
-                <GameCard
-                  key={game.slug}
-                  title={game.name}
-                  slug={game.slug}
-                  developer={game.developers[0].name}
-                  img={`http://localhost:1337${game.cover!.url}`}
-                  price={game.price}
-                />
-              ))}
-            </Grid>
+            {data?.games.length ? (
+              <>
+                <Grid>
+                  {data?.games.map((game) => (
+                    <GameCard
+                      key={game.slug}
+                      title={game.name}
+                      slug={game.slug}
+                      developer={game.developers[0].name}
+                      img={`http://localhost:1337${game.cover!.url}`}
+                      price={game.price}
+                    />
+                  ))}
+                </Grid>
 
-            <S.ShowMore role="button" onClick={handleShowMore}>
-              <p>Show More</p>
-              <ArrowDown size={35} />
-            </S.ShowMore>
+                <S.ShowMore role="button" onClick={handleShowMore}>
+                  <p>Show More</p>
+                  <ArrowDown size={35} />
+                </S.ShowMore>
+              </>
+            ) : (
+              <Empty title="=(" description="We didn't find any games" />
+            )}
           </section>
         )}
       </S.Main>
