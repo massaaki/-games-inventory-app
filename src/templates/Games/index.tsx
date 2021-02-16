@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router'
 import { ParsedUrlQueryInput } from 'querystring'
+import { useRouter } from 'next/router'
 
 import { useQueryGames } from 'graphql/queries/games'
-import { parseQueryStringToWhere, parseQueryStringToFilter } from 'utils/filter'
+import { parseQueryStringToFilter, parseQueryStringToWhere } from 'utils/filter'
 
 import Base from 'templates/Base'
 import { KeyboardArrowDown as ArrowDown } from '@styled-icons/material-outlined/KeyboardArrowDown'
@@ -37,12 +37,7 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
   }
 
   const handleShowMore = () => {
-    fetchMore({
-      variables: {
-        limit: 15,
-        start: data?.games.length
-      }
-    })
+    fetchMore({ variables: { limit: 15, start: data?.games.length } })
   }
 
   return (
@@ -56,6 +51,7 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
           items={filterItems}
           onFilter={handleFilter}
         />
+
         {loading ? (
           <S.Loading>Loading...</S.Loading>
         ) : (
