@@ -1,6 +1,4 @@
-import { useQuery } from '@apollo/client'
-import { QueryGames, QueryGamesVariables } from 'graphql/generated/QueryGames'
-import { QUERY_GAMES } from 'graphql/queries/games'
+import { useQueryGames } from 'graphql/queries/games'
 
 import Base from 'templates/Base'
 import { KeyboardArrowDown as ArrowDown } from '@styled-icons/material-outlined/KeyboardArrowDown'
@@ -17,13 +15,8 @@ export type GamesTemplateProps = {
 }
 
 const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
-  const { data, loading, fetchMore } = useQuery<
-    QueryGames,
-    QueryGamesVariables
-  >(QUERY_GAMES, {
-    variables: {
-      limit: 15
-    }
+  const { data, loading, fetchMore } = useQueryGames({
+    variables: { limit: 15 }
   })
 
   const handleFilter = () => {
