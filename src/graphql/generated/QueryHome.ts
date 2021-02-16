@@ -163,7 +163,7 @@ export interface QueryHome_sections_popularGames_games {
 export interface QueryHome_sections_popularGames {
   __typename: "ComponentPagePopularGames";
   title: string;
-  highlight: (QueryHome_sections_popularGames_highlight | null)[] | null;
+  highlight: QueryHome_sections_popularGames_highlight | null;
   games: QueryHome_sections_popularGames_games[];
 }
 
