@@ -16,12 +16,13 @@ export async function getStaticProps() {
     data: { banners, newGames, upcomingGames, freeGames, sections }
   } = await apolloClient.query<QueryHome, QueryHomeVariables>({
     query: QUERY_HOME,
-    variables: { date: TODAY }
+    variables: { date: TODAY },
+    fetchPolicy: 'no-cache' // garantir sempre dado novo na geracao do estatico
   })
 
   return {
+    revalidate: 60,
     props: {
-      revalidate: 60,
       banners: bannerMapper(banners),
       newGames: gamesMapper(newGames),
       mostPopularHighlight: highlightMapper(sections?.popularGames?.highlight),
