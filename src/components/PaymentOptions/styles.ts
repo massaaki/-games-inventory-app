@@ -4,14 +4,13 @@ import styled, { css, DefaultTheme } from 'styled-components'
 import * as ButtonStyles from 'components/Button/styles'
 
 export const Wrapper = styled.main`
-  ${({ theme }) => css`
-    background: ${theme.colors.white};
-  `}
+  ${({ theme }) => css``}
 `
 
 export const Body = styled.div`
   ${({ theme }) => css`
     padding: ${theme.spacings.small};
+    background: ${theme.colors.white};
   `}
 `
 
