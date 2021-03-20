@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from 'utils/test-utils'
 import GameCard, { GameCardProps } from '.'
 
 const props: GameCardProps = {
+  id: '1',
   slug: 'populartion-zero',
   title: 'Some title',
   developer: 'Some developer',
