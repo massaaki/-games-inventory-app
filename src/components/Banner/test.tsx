@@ -1,11 +1,10 @@
-import { screen } from '@testing-library/react'
-import { renderWithTheme } from 'utils/tests/helpers'
+import { render, screen } from 'utils/test-utils'
 
 import Banner from '.'
 
 describe('<Banner />', () => {
   it('should render correctly', () => {
-    const { container } = renderWithTheme(
+    const { container } = render(
       <Banner
         title="some title"
         subtitle="some subtitle"
@@ -35,7 +34,7 @@ describe('<Banner />', () => {
     expect(container.firstChild).toMatchSnapshot()
   })
   it('it should render a Ribbon', () => {
-    renderWithTheme(
+    render(
       <Banner
         title="some title"
         subtitle="some subtitle"
