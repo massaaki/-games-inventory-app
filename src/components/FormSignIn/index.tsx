@@ -10,16 +10,18 @@ import TextField from 'components/TextField'
 import Button from 'components/Button'
 
 import * as S from './styles'
-import { FormLink, FormWrapper } from 'components/Form'
+import { FormLink, FormWrapper, FormLoading } from 'components/Form'
 
 const FormSignIn = () => {
   const [values, setValues] = useState({})
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-
+    setLoading(true)
     //Sign in
+
     const result = await signIn('credentials', {
       ...values,
       redirect: false,
@@ -29,6 +31,7 @@ const FormSignIn = () => {
     if (result?.url) {
       return router.push(result?.url)
     }
+    setLoading(false)
 
     //Error
     console.error('Email or password invalid')
@@ -55,8 +58,8 @@ const FormSignIn = () => {
           icon={<PasswordIcon />}
         />
         <S.ForgotPassword href="#">Forgot your password?</S.ForgotPassword>
-        <Button type="submit" size="large" fullWidth>
-          Sign in now
+        <Button type="submit" size="large" fullWidth disabled={loading}>
+          {loading ? <FormLoading /> : <span>Sign in now</span>}
         </Button>
 
         <FormLink>
