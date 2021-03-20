@@ -15,7 +15,7 @@ import { FormLink, FormWrapper, FormLoading } from 'components/Form'
 const FormSignIn = () => {
   const [values, setValues] = useState({})
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
+  const { push } = useRouter()
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -29,7 +29,7 @@ const FormSignIn = () => {
     })
 
     if (result?.url) {
-      return router.push(result?.url)
+      return push(result?.url)
     }
     setLoading(false)
 
