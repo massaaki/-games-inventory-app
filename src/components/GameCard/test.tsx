@@ -1,5 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react'
-import { renderWithTheme } from 'utils/tests/helpers'
+import { render, screen, fireEvent } from 'utils/test-utils'
 
 import GameCard, { GameCardProps } from '.'
 
@@ -14,7 +13,7 @@ const props: GameCardProps = {
 describe('<GameCard />', () => {
   it('should render correctly', () => {
     //Renderizar o gamecard
-    renderWithTheme(<GameCard {...props} />)
+    render(<GameCard {...props} />)
 
     //verifique se o title foi renderizado
     expect(
@@ -44,7 +43,7 @@ describe('<GameCard />', () => {
 
   it('should render price in label', () => {
     //renderizar o componente
-    renderWithTheme(<GameCard {...props} />)
+    render(<GameCard {...props} />)
 
     //preco nao tenha o line-throw
     expect(screen.getByText('$100.00')).not.toHaveStyle({
@@ -59,7 +58,7 @@ describe('<GameCard />', () => {
 
   it('should render a line-through in price when promotional', () => {
     //renderizar o componente com promotional price // defaultPrice reais e promotionaPrice reais
-    renderWithTheme(<GameCard {...props} promotionalPrice={50} />)
+    render(<GameCard {...props} promotionalPrice={50} />)
 
     //preco  tenha o line-through (defaultPrice)
     expect(screen.getByText('$100.00')).toHaveStyle({
@@ -73,7 +72,7 @@ describe('<GameCard />', () => {
   })
 
   it('should render a field favorite icon when favorite is true', () => {
-    renderWithTheme(<GameCard {...props} favorite />)
+    render(<GameCard {...props} favorite />)
 
     expect(screen.getByLabelText(/Remove from Wishlist/i))
   })
@@ -82,13 +81,13 @@ describe('<GameCard />', () => {
     //criar um spy para informar quando o objeto foi chamado
     const onFav = jest.fn()
 
-    renderWithTheme(<GameCard {...props} favorite onFav={onFav} />)
+    render(<GameCard {...props} favorite onFav={onFav} />)
     fireEvent.click(screen.getAllByRole('button')[0])
     expect(onFav).toBeCalled()
   })
 
   it('it should render a Ribbon', () => {
-    renderWithTheme(
+    render(
       <GameCard
         {...props}
         ribbon="My Ribbon"

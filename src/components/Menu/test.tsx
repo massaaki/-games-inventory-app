@@ -1,11 +1,10 @@
-import { fireEvent, screen } from '@testing-library/react'
-import { renderWithTheme } from 'utils/tests/helpers'
+import { render, screen, fireEvent } from 'utils/test-utils'
 
 import Menu from '.'
 
 describe('<Menu />', () => {
   it('should render menu', () => {
-    renderWithTheme(<Menu />)
+    render(<Menu />)
 
     expect(screen.getByLabelText(/open menu/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/search/i)).toBeInTheDocument()
@@ -14,7 +13,7 @@ describe('<Menu />', () => {
   })
 
   it('should render the open/close menu', () => {
-    renderWithTheme(<Menu />)
+    render(<Menu />)
 
     // Selecionar o menuFull
     const fullMenuElement = screen.getByRole('navigation', { hidden: true })
@@ -35,7 +34,7 @@ describe('<Menu />', () => {
   })
 
   it('should show register box when logged out', () => {
-    renderWithTheme(<Menu />)
+    render(<Menu />)
     // expect(screen.getByRole('link', { name: /Sign in/i })).toBeInTheDocument()
     expect(screen.getByText(/sign up/i)).toBeInTheDocument()
     // expect(screen.queryByText(/My account/i)).not.toBeInTheDocument()
@@ -43,7 +42,7 @@ describe('<Menu />', () => {
   })
 
   it('should show whishlist and account when logged in', () => {
-    renderWithTheme(<Menu username="usertest" />)
+    render(<Menu username="usertest" />)
     // expect(screen.getByText(/My account/i)).toBeInTheDocument()
     // expect(screen.getByText(/Wishlist/i)).toBeInTheDocument()
     expect(screen.queryByText(/Log in now/i)).not.toBeInTheDocument()
