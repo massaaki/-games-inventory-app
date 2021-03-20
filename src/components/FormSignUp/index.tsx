@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { AccountCircle, Email, Lock } from '@styled-icons/material-outlined'
+import { signIn } from 'next-auth/client'
 
 import Button from 'components/Button'
 import TextField from 'components/TextField'
@@ -18,7 +19,21 @@ const FormSignUp = () => {
     password: ''
   })
 
-  const [createUser] = useMutation(MUTATION_REGISTER)
+  const [createUser, { error }] = useMutation(MUTATION_REGISTER, {
+    onError: (err) => console.log(err),
+    onCompleted: () => {
+      !error &&
+        signIn('credentials', {
+          email: values.email,
+          password: values.password,
+          callbackUrl: '/'
+        })
+    }
+  })
+
+  // if (result?.url) {
+  //   return router.push(result?.url)
+  // }
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
