@@ -31,10 +31,6 @@ const FormSignUp = () => {
     }
   })
 
-  // if (result?.url) {
-  //   return router.push(result?.url)
-  // }
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     setLoading(true)
