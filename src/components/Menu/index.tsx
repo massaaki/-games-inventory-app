@@ -15,7 +15,7 @@ import MediaMatch from 'components/MediaMatch'
 import * as S from './styles'
 
 export type MenuProps = {
-  username?: string
+  username?: string | null
 }
 
 const Menu = ({ username }: MenuProps) => {
