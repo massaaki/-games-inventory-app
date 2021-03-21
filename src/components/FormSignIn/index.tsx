@@ -5,15 +5,20 @@ import { useRouter } from 'next/router'
 
 import { Email as EmailIcon } from '@styled-icons/material-outlined/Email'
 import { LockAlt as PasswordIcon } from '@styled-icons/boxicons-regular/LockAlt'
+import { ErrorOutline as ErrorIcon } from '@styled-icons/material-outlined/'
+
+import { FieldErrors, signInValidate } from 'utils/valitations'
 
 import TextField from 'components/TextField'
 import Button from 'components/Button'
 
+import { FormLink, FormWrapper, FormLoading, FormError } from 'components/Form'
 import * as S from './styles'
-import { FormLink, FormWrapper, FormLoading } from 'components/Form'
 
 const FormSignIn = () => {
-  const [values, setValues] = useState({})
+  const [formError, setFormError] = useState('')
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
+  const [values, setValues] = useState({ email: '', password: '' })
   const [loading, setLoading] = useState(false)
   const { push } = useRouter()
 
@@ -21,6 +26,14 @@ const FormSignIn = () => {
     event.preventDefault()
     setLoading(true)
     //Sign in
+    const errors = signInValidate(values)
+
+    if (Object.keys(errors).length) {
+      setFieldErrors(errors)
+      setLoading(false)
+      return
+    }
+    setFieldErrors({})
 
     const result = await signIn('credentials', {
       ...values,
@@ -33,8 +46,7 @@ const FormSignIn = () => {
     }
     setLoading(false)
 
-    //Error
-    console.error('Email or password invalid')
+    setFormError('username or password is invalid')
   }
   const handleInput = (field: string, value: string) => {
     setValues((s) => ({ ...s, [field]: value }))
@@ -42,10 +54,17 @@ const FormSignIn = () => {
 
   return (
     <FormWrapper>
+      {!!formError && (
+        <FormError>
+          <ErrorIcon />
+          {formError}
+        </FormError>
+      )}
       <form onSubmit={handleSubmit}>
         <TextField
           name="email"
           placeholder="Email"
+          error={fieldErrors?.email}
           type="email"
           onInputChange={(v) => handleInput('email', v)}
           icon={<EmailIcon />}
@@ -54,6 +73,7 @@ const FormSignIn = () => {
           name="password"
           placeholder="Password"
           type="password"
+          error={fieldErrors?.password}
           onInputChange={(v) => handleInput('password', v)}
           icon={<PasswordIcon />}
         />
